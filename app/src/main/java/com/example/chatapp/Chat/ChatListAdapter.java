@@ -44,12 +44,11 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(), ChatActivity.class);
-                Bundle bundle=new Bundle();
-                Bundle.putString("chatID",chatList.get(holder.getAdapterPosition()).getChatId());
-                Intent.putExtras(bundle);
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("chatID", chatList.get(holder.getAdapterPosition()).getChatId());
+                intent.putExtras(bundle);
                 v.getContext().startActivity(intent);
-
             }
         });
     }
@@ -62,6 +61,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
     public class ChatListViewHolder extends RecyclerView.ViewHolder {
         public TextView mTitle;
         public LinearLayout mLayout;
+
         public ChatListViewHolder(View view) {
             super(view);
             mTitle = view.findViewById(R.id.title);

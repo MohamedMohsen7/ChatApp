@@ -29,14 +29,15 @@ public class ChatActivity extends AppCompatActivity {
 
     ArrayList<MessageObject> messageList;
     String chatID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        chatID=getIntent().getExtras().getString("chatID");
+        chatID = getIntent().getExtras().getString("chatID");
 
-        Button mSend=findViewById(R.id.send);
+        Button mSend = findViewById(R.id.send);
         mSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,13 +46,14 @@ public class ChatActivity extends AppCompatActivity {
         });
         initializeRecyclerView();
     }
-    private  void sendMessage(){
-        EditText mMessage=findViewById(androidx.core.R.id.message);
-        if (!mMessage.getText().toString().isEmpty()){
-            DatabaseReference newMessageDb= FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
 
-            Map newMessageMap=new HashMap<>();
-            newMessageMap.put("text",mMessage.getText().toString());
+    private void sendMessage() {
+        EditText mMessage = findViewById(R.id.message);
+        if (!mMessage.getText().toString().isEmpty()) {
+            DatabaseReference newMessageDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
+
+            Map newMessageMap = new HashMap<>();
+            newMessageMap.put("text", mMessage.getText().toString());
             newMessageMap.put("creator", FirebaseAuth.getInstance().getUid());
             newMessageDb.updateChildren(newMessageMap);
         }
@@ -60,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initializeRecyclerView() {
         messageList = new ArrayList<>();
-        mChat = findViewById(R.id.message);
+        mChat = findViewById(R.id.messagelist);
         mChat.setNestedScrollingEnabled(false);
         mChat.setHasFixedSize(false);
         mChatLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
