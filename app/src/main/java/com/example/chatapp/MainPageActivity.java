@@ -28,7 +28,7 @@ public class MainPageActivity extends AppCompatActivity {
     private RecyclerView.Adapter mChatListAdapter;
     private RecyclerView.LayoutManager mChatListLayoutManager;
 
-    ArrayList<ChatObject> chatList;
+    ArrayList<ChatObject> chatList = new ArrayList<ChatObject>();
 
 
     @Override
@@ -68,6 +68,7 @@ public class MainPageActivity extends AppCompatActivity {
         DatabaseReference mUserChatDB = FirebaseDatabase.getInstance().getReference().child("user").child(FirebaseAuth
         .getInstance().getUid()).child("chat");
 
+        //Always listening to the DB and checking for changes
         mUserChatDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -34,7 +34,7 @@ public class ChatActivity extends AppCompatActivity {
 
     ArrayList<MessageObject> messageList;
     String chatID;
-    DatabaseReference mChatDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID);
+    DatabaseReference mChatDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +42,14 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         chatID = getIntent().getExtras().getString("chatID");
-
+        mChatDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID);
         Button mSend = findViewById(R.id.send);
         mSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
             }
+
         });
         initializeRecyclerView();
         getChatMessages();
@@ -89,9 +90,9 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        EditText mMessage = findViewById(R.id.message);
+        EditText mMessage = findViewById(R.id.message1);
         if (!mMessage.getText().toString().isEmpty()) {
-            DatabaseReference newMessageDb = mChatDb.push();
+            DatabaseReference newMessageDb = FirebaseDatabase.getInstance().getReference().child("chat").child(chatID).push();
 
             Map newMessageMap = new HashMap<>();
             newMessageMap.put("text", mMessage.getText().toString());
