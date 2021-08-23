@@ -1,15 +1,24 @@
 package com.example.chatapp.Chat;
 
+import android.graphics.Matrix;
+import android.media.Image;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatapp.R;
+import com.github.piasy.biv.BigImageViewer;
+import com.github.piasy.biv.loader.fresco.FrescoImageLoader;
+import com.github.piasy.biv.view.BigImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,9 +44,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageAdapter.MessageViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MessageAdapter.MessageViewHolder holder, final int position) {
       holder.mMessage.setText(messageList.get(position).getMessage());
       holder.mSender.setText(messageList.get(position).getSenderId());
+
+      holder.mViewMedia.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+
+
+          }
+      });
     }
 
     @Override
@@ -48,11 +65,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
      class MessageViewHolder extends RecyclerView.ViewHolder {
          TextView mMessage, mSender;
          LinearLayout mLayout;
+         Button mViewMedia;
          MessageViewHolder(View view) {
             super(view);
             mLayout = view.findViewById(R.id.layout);
             mMessage = view.findViewById(R.id.message);
             mSender = view.findViewById(R.id.sender);
+            mViewMedia=view.findViewById(R.id.viewMedia);
         }
     }
 
